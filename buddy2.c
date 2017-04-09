@@ -35,7 +35,7 @@ struct buddy2* buddy2_new( int size ) {
   if (size < 1 || !IS_POWER_OF_2(size))
     return NULL;
 
-  self = (struct buddy2*)ALLOC( 2 * size * sizeof(unsigned));
+  self = (struct buddy2*)ALLOC( 2 * size * sizeof(unsigned));   /* 维护二叉树所需内存*/
   self->size = size;
   node_size = size * 2;
 
@@ -93,7 +93,7 @@ void buddy2_free(struct buddy2* self, int offset) {
   assert(self && offset >= 0 && offset < self->size);
 
   node_size = 1;
-  index = offset + self->size - 1;
+  index = offset + self->size - 1;  /* 这里是回溯到叶子节点，最末级节点*/
 
   for (; self->longest[index] ; index = PARENT(index)) {
     node_size *= 2;
