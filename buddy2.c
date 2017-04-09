@@ -18,6 +18,7 @@ struct buddy2 {
 #define ALLOC malloc
 #define FREE free
 
+/* 将最高位至最低位依次用1填充，最后加1，实现向上取2的幂*/
 static unsigned fixsize(unsigned size) {
   size |= size >> 1;
   size |= size >> 2;
